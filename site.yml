@@ -1,6 +1,6 @@
 - name: 主機環境設定
   hosts: all
-  become: False
+  become: no
 
   vars:
     deploy_account: deploy
@@ -12,5 +12,5 @@
     - build_dependencies
     - install_apps
     # - ruby-install
-    - rvm
+    # - rvm
   tasks:
