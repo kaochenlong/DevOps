@@ -1,0 +1,16 @@
+- name: 主機環境設定
+  hosts: all
+  become: False
+
+  vars:
+    deploy_account: deploy
+    ruby_version: 2.6.4
+
+  roles: 
+    - user_settings
+    - prerequisite
+    - build_dependencies
+    - install_apps
+    # - ruby-install
+    # - rvm
+  tasks:
