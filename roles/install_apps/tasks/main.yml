@@ -1,7 +1,11 @@
 - name: 安裝必要軟體
   apt:
     name: [
-            'ruby', 'vim', 'git-core', 'postgresql', 'sqlite3',
+            'ruby', 
+            'vim', 
+            'git-core', 
+            'postgresql', 
+            'sqlite3',
             'nginx'
           ]
     state: present

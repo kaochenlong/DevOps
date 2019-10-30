@@ -1,0 +1,9 @@
+- gem: 
+    name: bundler
+    state: latest
+
+- gem:
+    name: rails
+    version: "{{ rails_version }}"
+    state: present
+

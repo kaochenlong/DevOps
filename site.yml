@@ -5,12 +5,20 @@
   vars:
     deploy_account: deploy
     ruby_version: 2.6.4
+    rails_version: 6.0.0
 
   roles: 
     - user_settings
     - prerequisite
     - build_dependencies
     - install_apps
-    # - ruby-install
-    # - rvm
+    - { 
+        role: rvm.ruby,
+        tags: ruby,
+        rvm1_rubies: ['ruby-{{ ruby_version }}'], 
+        rvm1_install_flags: '--auto-dotfiles',
+        become: yes, 
+        rvm1_user: "{{ deploy_account }}" 
+      }
+    - gems
   tasks:
