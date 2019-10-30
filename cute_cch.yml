@@ -1,0 +1,83 @@
+-
+  name: 主機環境設定
+  hosts: all
+  become: False
+  vars:
+    deploy_account: deploy
+
+  tasks: 
+    - name: 新增佈署專用帳號 
+      user: 
+        name: "{{ deploy_account }}"
+        state: present
+
+    - name: 設定 sudo 指令權限
+      lineinfile:
+        path: "/etc/sudoers.d/{{ deploy_account }}"
+        line: "{{ deploy_account }} ALL=(ALL) NOPASSWD: ALL"
+        state: present
+        mode: 0440
+        create: yes
+        validate: 'visudo -cf %s'
+
+    - name: 設定 SSH key
+      authorized_key:
+        user: "{{ deploy_account }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+    - name: 安裝工具
+      raw: 'apt-get install aptitude -y'
+
+    - name: 更新套件列表
+      apt:
+        upgrade: yes
+        update_cache: yes
+      become: True
+      become_method: sudo
+
+    - name: 安裝開發套件
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop: 
+        - build-essential 
+        - bison 
+        - openssl 
+        - libreadline6-dev 
+        - curl 
+        - zlib1g 
+        - zlib1g-dev 
+        - libssl-dev 
+        - libyaml-dev 
+        - libsqlite3-0 
+        - libsqlite3-dev  
+        - autoconf 
+        - automake
+        - libc6-dev 
+        - libpcre3-dev 
+        - libcurl4-nss-dev 
+        - libxml2-dev 
+        - libxslt-dev
+        - libffi-dev
+        - libgdbm-dev 
+        - libncurses5-dev  
+        - libtool 
+        - libffi-dev
+        - imagemagick 
+      become: True
+      become_method: sudo
+
+    - name: 安裝必要軟體
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop: 
+        - vim
+        - git-core 
+        - postgresql
+        - sqlite3 
+        - nodejs 
+      become: True
+      become_method: sudo
+
