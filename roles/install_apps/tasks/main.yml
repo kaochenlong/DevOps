@@ -2,7 +2,7 @@
   apt:
     name: [
             'ruby', 'vim', 'git-core', 'postgresql', 'sqlite3',
-            'nginx', 'yarn'
+            'nginx'
           ]
     state: present
   become_method: sudo

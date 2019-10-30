@@ -19,13 +19,3 @@
     state: present
     key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
-- name: 套件安裝工具 Aptitude
-  apt: 
-    name: aptitude
-
-- name: 更新套件列表
-  apt:
-    upgrade: yes
-    update_cache: yes
-  become_method: sudo
-

@@ -12,5 +12,5 @@
     - build_dependencies
     - install_apps
     # - ruby-install
-    # - rvm
+    - rvm
   tasks:
