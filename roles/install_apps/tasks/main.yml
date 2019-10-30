@@ -1,7 +1,8 @@
 - name: 安裝必要軟體
   apt:
     name: [
-            'ruby', 'vim', 'git-core', 'postgresql', 'sqlite3', 'nginx'
+            'ruby', 'vim', 'git-core', 'postgresql', 'sqlite3',
+            'nginx', 'yarn'
           ]
     state: present
   become_method: sudo
