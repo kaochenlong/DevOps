@@ -10,38 +10,9 @@
     - user_settings
     - build_dependencies
     - install_apps
+    # - ruby-install
+    # - rvm
   tasks:
-    # - name: 下載 ruby-install
-    #   get_url:
-    #     url: https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz
-    #     dest: /home/{{ deploy_account }}/ruby-install.tar.gz
-    #   become: True
-    #   become_method: sudo
-    #
-    # - name: 解壓縮
-    #   unarchive:
-    #     src: /home/{{ deploy_account }}/ruby-install.tar.gz
-    #     dest: /home/{{ deploy_account }}
-    #     remote_src: yes
-    #   become: True
-    #   become_method: sudo
-    #
-    # - name: 安裝 ruby-install
-    #   make:
-    #     chdir: /home/{{ deploy_account }}/ruby-install-0.7.0
-    #     target: install
-    #   become: True
-    #   become_method: sudo
-    #
-    # - name: 安裝 Ruby
-    #   become_user: deploy
-    #   command: /usr/local/bin/ruby-install --no-install-deps ruby {{ ruby_version }}
-    #   args:
-    #     creates: /home/{{ deploy_account }}/.rubies/ruby-{{ ruby_version }}
-    #   become: True
-    #   become_method: sudo
-
-
     # - name: 安裝 RVM part 1
     #   command: gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 
