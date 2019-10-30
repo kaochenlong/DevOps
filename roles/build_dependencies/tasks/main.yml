@@ -1,0 +1,12 @@
+- name: 安裝開發相關套件
+  apt:
+    name: [
+           'build-essential', 'bison', 'gcc', 'openssl', 'libreadline6-dev', 
+           'curl', 'zlib1g', 'zlib1g-dev', 'libssl-dev', 'libyaml-dev', 
+           'libsqlite3-0', 'libsqlite3-dev', 'autoconf', 'automake', 'libc6-dev',
+           'libpcre3-dev', 'libcurl4-nss-dev', 'libxml2-dev', 'libxslt-dev', 
+           'libffi-dev', 'libgdbm-dev', 'libncurses5-dev', 'libtool', 'libffi-dev',
+           'imagemagick', 'nodejs', 'gnupg'
+          ]
+    state: present
+  become_method: sudo

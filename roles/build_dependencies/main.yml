@@ -1,0 +1,101 @@
+-
+  name: 主機環境設定
+  hosts: all
+  become: False
+  vars:
+    deploy_account: deploy
+    ruby_version: 2.6.4
+
+  tasks: 
+    - name: 新增佈署專用帳號 
+      user: 
+        name: "{{ deploy_account }}"
+        shell: /bin/bash
+        state: present
+
+    - name: 設定 sudo 指令權限
+      lineinfile:
+        path: /etc/sudoers.d/{{ deploy_account }}
+        line: "{{ deploy_account }} ALL=(ALL) NOPASSWD: ALL"
+        state: present
+        mode: 0440
+        create: yes
+        validate: "visudo -cf %s"
+
+    - name: 設定 SSH key
+      authorized_key:
+        user: "{{ deploy_account }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+    - name: 套件安裝工具 Aptitude
+      apt: 
+        name: aptitude
+
+    - name: 更新套件列表
+      apt:
+        upgrade: yes
+        update_cache: yes
+      become_method: sudo
+
+    - name: 安裝開發相關套件
+      apt:
+        name: [
+               'build-essential', 'bison', 'gcc', 'openssl', 'libreadline6-dev', 
+               'curl', 'zlib1g', 'zlib1g-dev', 'libssl-dev', 'libyaml-dev', 
+               'libsqlite3-0', 'libsqlite3-dev', 'autoconf', 'automake', 'libc6-dev',
+               'libpcre3-dev', 'libcurl4-nss-dev', 'libxml2-dev', 'libxslt-dev', 
+               'libffi-dev', 'libgdbm-dev', 'libncurses5-dev', 'libtool', 'libffi-dev',
+               'imagemagick', 'nodejs', 'gnupg'
+              ]
+        state: present
+      become_method: sudo
+
+    # - name: 下載 ruby-install
+    #   get_url:
+    #     url: https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz
+    #     dest: /home/{{ deploy_account }}/ruby-install.tar.gz
+    #   become: True
+    #   become_method: sudo
+    #
+    # - name: 解壓縮
+    #   unarchive:
+    #     src: /home/{{ deploy_account }}/ruby-install.tar.gz
+    #     dest: /home/{{ deploy_account }}
+    #     remote_src: yes
+    #   become: True
+    #   become_method: sudo
+    #
+    # - name: 安裝 ruby-install
+    #   make:
+    #     chdir: /home/{{ deploy_account }}/ruby-install-0.7.0
+    #     target: install
+    #   become: True
+    #   become_method: sudo
+    #
+    # - name: 安裝 Ruby
+    #   become_user: deploy
+    #   command: /usr/local/bin/ruby-install --no-install-deps ruby {{ ruby_version }}
+    #   args:
+    #     creates: /home/{{ deploy_account }}/.rubies/ruby-{{ ruby_version }}
+    #   become: True
+    #   become_method: sudo
+
+    - name: 安裝必要軟體
+      apt:
+        name: [
+                'ruby', 'vim', 'git-core', 'postgresql', 'sqlite3', 'nginx'
+              ]
+        state: present
+      become_method: sudo
+
+    # - name: 安裝 RVM part 1
+    #   command: gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+
+    # - name: 安裝 RVM part 2
+    #   command: "curl -sSL https://get.rvm.io | bash -s stable"
+    #   become_method: sudo
+
+    # - name: 安裝 RVM part 2
+    #   command: rvm install {{ ruby_version }}
+
