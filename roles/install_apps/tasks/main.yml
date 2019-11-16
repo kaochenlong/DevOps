@@ -7,7 +7,8 @@
             'postgresql', 
             'sqlite3',
             'nginx', 
-            'nginx-extras'
+            'nginx-extras', 
+            'libnginx-mod-http-passenger'
           ]
     state: present
   become_method: sudo
