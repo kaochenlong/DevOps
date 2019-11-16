@@ -6,7 +6,8 @@
             'git-core', 
             'postgresql', 
             'sqlite3',
-            'nginx'
+            'nginx', 
+            'nginx-extras'
           ]
     state: present
   become_method: sudo

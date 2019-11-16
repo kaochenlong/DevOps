@@ -1,11 +1,11 @@
-- name: 主機環境設定
-  hosts: all
+- name: 主機環境設定(Ubuntu 18.04)
+  hosts: local_ubuntu_18
   become: no
 
   vars:
     deploy_account: deploy
-    ruby_version: 2.6.4
-    rails_version: 6.0.0
+    ruby_version: 2.6.5
+    rails_version: 6.0.1
 
   roles: 
     - user_settings
@@ -21,4 +21,12 @@
         rvm1_user: "{{ deploy_account }}" 
       }
     - gems
+    - { 
+        role: geerlingguy.passenger,
+        tags: ruby,
+        passenger_app_root: /var/www/public, 
+        passenger_app_env: production, 
+        passenger_ruby: "/home/{{ deploy_account }}/.rvm/rubies/ruby-{{ruby_version}}/bin/ruby"
+      }
   tasks:
+
