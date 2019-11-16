@@ -5,6 +5,7 @@
     state: present
 
 - name: 設定 sudo 指令權限
+  become: true
   lineinfile:
     path: /etc/sudoers.d/{{ deploy_account }}
     line: "{{ deploy_account }} ALL=(ALL) NOPASSWD: ALL"
