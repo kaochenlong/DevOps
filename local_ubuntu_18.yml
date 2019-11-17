@@ -15,16 +15,16 @@
     - { 
         role: rvm.ruby,
         tags: ruby,
-        rvm1_rubies: ['ruby-{{ ruby_version }}'], 
+        rvm1_rubies: [ "ruby-{{ ruby_version }}" ], 
         rvm1_install_flags: '--auto-dotfiles',
-        become: yes, 
-        rvm1_user: "{{ deploy_account }}" 
+        rvm1_user: "{{ deploy_account }}" ,
+        become: yes 
       }
     - gems
     - { 
         role: geerlingguy.passenger,
         tags: ruby,
-        passenger_app_root: /var/www/public, 
+        passenger_app_root: /var/www/app/public, 
         passenger_app_env: production, 
         passenger_ruby: "/home/{{ deploy_account }}/.rvm/rubies/ruby-{{ruby_version}}/bin/ruby"
       }

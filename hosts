@@ -1,5 +1,5 @@
 [digital_ocean]
-cch ansible_host=68.183.63.152
+CCH ansible_host=68.183.63.152
 
 [local_ubuntu_18]
-cch ansible_host=127.0.0.1 ansible_user=root ansible_port=2222
+CCH ansible_host=127.0.0.1 ansible_user=root ansible_port=2222

@@ -4,7 +4,7 @@
 
 - name: 更新套件列表
   apt:
-    upgrade: yes
-    update_cache: yes
+    upgrade: 'yes'
+    update_cache: 'yes'
   become_method: sudo
 
