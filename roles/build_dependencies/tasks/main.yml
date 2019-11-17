@@ -27,7 +27,8 @@
            'libffi-dev',
            'imagemagick', 
            'nodejs', 
-           'gnupg'
+           'gnupg', 
+           'libpq-dev'
           ]
     state: present
   become_method: sudo
